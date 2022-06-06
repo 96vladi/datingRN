@@ -25,12 +25,23 @@ const Home = () => {
     }
   ]);
 
+  const removePatient = (id) => {
+    setCitas( (citasActuales) => {
+      return citasActuales.filter( cita => cita.id !== id )
+    } );
+  };
+
   return (
     <Layout>
       <CustomText>Administrador De Citas</CustomText>
+      <CustomText>
+        {
+          citas.length > 0 ? 'Administra tus ctas' : 'No hay citas, agrega una'
+        }
+      </CustomText>
       <FlatList 
         data={citas}
-        renderItem={({item}) => <List cita={item}/>}
+        renderItem={({item}) => <List cita={item} removePatient={removePatient}/>}
         keyExtractor={cita => cita.id}
       />
     </Layout>

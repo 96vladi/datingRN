@@ -2,9 +2,10 @@ import React from 'react'
 import { CustomText } from '../Generals';
 import { BtnDelet, ContainerList, ContainerText } from './styledComponent';
 
-const List = ({cita}) => {
-  const dialogoEliminar = () => {
-    console.log("Eliminando...")
+const List = ({cita, removePatient}) => {
+  const dialogoEliminar = (id) => {
+    console.log("Eliminando...", id);
+    removePatient(id);
   };
   return (
     <ContainerList>
@@ -20,8 +21,8 @@ const List = ({cita}) => {
         <CustomText clr='black' fz='18px' mt='20px' align='left'>Sintomas: </CustomText>
         <CustomText clr='black' fz='18px' fw='normal' align='left'>{cita.sintomas}</CustomText>
       </ContainerText>
-      <BtnDelet onPress={ () => dialogoEliminar()}>
-        <CustomText>Eliminar &times;</CustomText>
+      <BtnDelet onPress={ () => dialogoEliminar(cita.id)}>
+        <CustomText fz='12px'>Eliminar &times;</CustomText>
       </BtnDelet>
     </ContainerList>
   )
