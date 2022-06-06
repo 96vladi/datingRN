@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CustomText, Layout } from '../../components/Generals';
 import { FlatList } from 'react-native';
 import List from '../../components/LIst';
+import Form from '../../components/Form/idex';
 const Home = () => {
 
   const [ citas, setCitas ] = useState([
@@ -34,6 +35,7 @@ const Home = () => {
   return (
     <Layout>
       <CustomText>Administrador De Citas</CustomText>
+      <Form />
       <CustomText>
         {
           citas.length > 0 ? 'Administra tus ctas' : 'No hay citas, agrega una'
