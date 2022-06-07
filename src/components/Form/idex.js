@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {CustomText} from '../Generals';
 import {ContainerForm, ContainerInput, CustomInput} from './styledComponent';
-import { View, Button } from 'react-native';
+import {View, Button, Alert} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { BtnDelet } from '../LIst/styledComponent';
+import {BtnDelet} from '../LIst/styledComponent';
+import shortid from 'shortid';
 
-const Form = () => {
-
+const Form = ({citas,setCitas,setShowForm}) => {
   const [patient, setPatient] = useState('');
   const [owner, setOwner] = useState('');
   const [contact, setContact] = useState('');
@@ -29,7 +29,7 @@ const Form = () => {
     const options = {
       year: 'numeric',
       month: 'long',
-      day: '2-digit'
+      day: '2-digit',
     };
     setDate(date.toLocaleDateString('es-ES', options));
     hideDatePicker();
@@ -47,7 +47,7 @@ const Form = () => {
   const ConfirmTime = date => {
     const options = {
       hour: 'numeric',
-      minute: '2-digit'
+      minute: '2-digit',
     };
     setTime(date.toLocaleString('es-ES', options));
     hideTimePicker();
@@ -55,7 +55,37 @@ const Form = () => {
 
   //create New Appointment
   const createNewAppointment = () => {
-    console.log('Desde createNewAppointment');
+    if (
+      patient.trim() === '' ||
+      owner.trim() === '' ||
+      contact.trim() === '' ||
+      date.trim() === '' ||
+      time.trim() === '' ||
+      symptoms.trim() === ''
+    ) {
+      showAlert();
+      return;
+    }
+    //create new cita
+    const cita = {patient, owner, contact, date, time, symptoms};
+    cita.id = shortid.generate();
+    //add cita
+    const citasNuevas = [...citas, cita];
+    setCitas(citasNuevas);
+    console.log(citasNuevas);
+    //Hide Form
+    setShowForm(false);
+  };
+
+  // Show alert
+  const showAlert = () => {
+    Alert.alert(
+      'Error',
+      'Todos los campos son obligatorios',
+      [{
+        text: 'Ok'
+      }]
+    );
   };
 
   return (
@@ -131,11 +161,10 @@ const Form = () => {
             onChangeText={text => {
               setSymptoms(text);
             }}
-            keyboardType="numeric"
           />
         </ContainerInput>
-        <BtnDelet onPress={ () => createNewAppointment() }>
-          <CustomText fz='12px'>Create New Appointment</CustomText>
+        <BtnDelet onPress={() => createNewAppointment()}>
+          <CustomText fz="12px">Create New Appointment</CustomText>
         </BtnDelet>
       </ContainerForm>
     </>

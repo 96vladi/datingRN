@@ -12,3 +12,8 @@ export const CustomText = styled.Text`
   font-weight: ${({fw}) => fw ?? 'bold'};
   text-align: ${({align}) => align ?? 'center'};
 `;
+
+export const Container = styled.View`
+  flex:1;
+  margin: 0px 2.5% 0px 2.5%;
+`;

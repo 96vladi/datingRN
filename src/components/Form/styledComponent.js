@@ -4,10 +4,9 @@ export const ContainerInput = styled.View`
 
 `;
 
-export const ContainerForm = styled.View`
+export const ContainerForm = styled.ScrollView`
   background-color: white;
   padding: 10px 20px 10px 20px;
-  margin: 0px 2.5% 0px 2.5%;
 `;
 
 export const CustomInput = styled.TextInput`
