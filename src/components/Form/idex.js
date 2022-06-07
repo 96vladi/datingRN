@@ -3,8 +3,14 @@ import {CustomText} from '../Generals';
 import {ContainerForm, ContainerInput, CustomInput} from './styledComponent';
 import { View, Button } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { BtnDelet } from '../LIst/styledComponent';
 
 const Form = () => {
+
+  const [patient, setPatient] = useState('');
+  const [owner, setOwner] = useState('');
+  const [contact, setContact] = useState('');
+  const [symptoms, setSymptoms] = useState('');
 
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -47,42 +53,47 @@ const Form = () => {
     hideTimePicker();
   };
 
+  //create New Appointment
+  const createNewAppointment = () => {
+    console.log('Desde createNewAppointment');
+  };
+
   return (
     <>
       <ContainerForm>
         <ContainerInput>
-          <CustomText fz="18px" mt="20px" clr="black" align="left">
+          <CustomText fz="18px" mt="10px" clr="black" align="left">
             Paciente
           </CustomText>
           <CustomInput
             onChangeText={text => {
-              console.log(text);
+              setPatient(text);
             }}
           />
         </ContainerInput>
         <ContainerInput>
-          <CustomText fz="18px" mt="20px" clr="black" align="left">
+          <CustomText fz="18px" mt="10px" clr="black" align="left">
             Dueño
           </CustomText>
           <CustomInput
             onChangeText={text => {
-              console.log(text);
+              setOwner(text);
             }}
           />
         </ContainerInput>
         <ContainerInput>
-          <CustomText fz="18px" mt="20px" clr="black" align="left">
+          <CustomText fz="18px" mt="10px" clr="black" align="left">
             Contacto
           </CustomText>
           <CustomInput
             onChangeText={text => {
-              console.log(text);
+              setContact(text);
             }}
             keyboardType="numeric"
           />
         </ContainerInput>
         <View>
-          <CustomText fz="18px" mt="20px" clr="black" align="left">
+          <CustomText fz="18px" mt="10px" clr="black" align="left">
             Fecha
           </CustomText>
           <Button title="Seleccionar fecha" onPress={showDatePicker} />
@@ -92,12 +103,12 @@ const Form = () => {
             onConfirm={ConfirmDate}
             onCancel={hideDatePicker}
           />
-          <CustomText fz="18px" mt="20px" clr="black" align="left">
+          <CustomText fz="18px" mt="10px" clr="black" align="left">
             {date}
           </CustomText>
         </View>
         <View>
-          <CustomText fz="18px" mt="20px" clr="black" align="left">
+          <CustomText fz="18px" mt="10px" clr="black" align="left">
             Hora
           </CustomText>
           <Button title="Seleccionar hora" onPress={showTimePicker} />
@@ -107,22 +118,25 @@ const Form = () => {
             onConfirm={ConfirmTime}
             onCancel={hideTimePicker}
           />
-          <CustomText fz="18px" mt="20px" clr="black" align="left">
+          <CustomText fz="18px" mt="10px" clr="black" align="left">
             {time}
           </CustomText>
         </View>
         <ContainerInput>
-          <CustomText fz="18px" mt="20px" clr="black" align="left">
+          <CustomText fz="18px" mt="10px" clr="black" align="left">
             Sintomas
           </CustomText>
           <CustomInput
             multiline
             onChangeText={text => {
-              console.log(text);
+              setSymptoms(text);
             }}
             keyboardType="numeric"
           />
         </ContainerInput>
+        <BtnDelet onPress={ () => createNewAppointment() }>
+          <CustomText fz='12px'>Create New Appointment</CustomText>
+        </BtnDelet>
       </ContainerForm>
     </>
   );
