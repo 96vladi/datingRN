@@ -6,6 +6,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const Form = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -15,9 +16,23 @@ const Form = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = date => {
+  const ConfirmDate = date => {
     console.warn('A date has been picked: ', date);
     hideDatePicker();
+  };
+
+  //Time picker
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+
+  const ConfirmTime = date => {
+    console.warn('A date has been picked: ', date);
+    hideTimePicker();
   };
 
   return (
@@ -54,6 +69,24 @@ const Form = () => {
             keyboardType="numeric"
           />
         </ContainerInput>
+        <View>
+          <Button title="Seleccionar fecha" onPress={showDatePicker} />
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={ConfirmDate}
+            onCancel={hideDatePicker}
+          />
+        </View>
+        <View>
+          <Button title="Seleccionar hora" onPress={showTimePicker} />
+          <DateTimePickerModal
+            isVisible={isTimePickerVisible}
+            mode="time"
+            onConfirm={ConfirmTime}
+            onCancel={hideTimePicker}
+          />
+        </View>
         <ContainerInput>
           <CustomText fz="18px" mt="20px" clr="black" align="left">
             Sintomas
@@ -66,15 +99,6 @@ const Form = () => {
             keyboardType="numeric"
           />
         </ContainerInput>
-        <View>
-          <Button title="Show Date Picker" onPress={showDatePicker} />
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-          />
-        </View>
       </ContainerForm>
     </>
   );
