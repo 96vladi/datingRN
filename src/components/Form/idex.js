@@ -5,6 +5,9 @@ import { View, Button } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const Form = () => {
+
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
@@ -17,7 +20,12 @@ const Form = () => {
   };
 
   const ConfirmDate = date => {
-    console.warn('A date has been picked: ', date);
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit'
+    };
+    setDate(date.toLocaleDateString('es-ES', options));
     hideDatePicker();
   };
 
@@ -31,7 +39,11 @@ const Form = () => {
   };
 
   const ConfirmTime = date => {
-    console.warn('A date has been picked: ', date);
+    const options = {
+      hour: 'numeric',
+      minute: '2-digit'
+    };
+    setTime(date.toLocaleString('es-ES', options));
     hideTimePicker();
   };
 
@@ -70,6 +82,9 @@ const Form = () => {
           />
         </ContainerInput>
         <View>
+          <CustomText fz="18px" mt="20px" clr="black" align="left">
+            Fecha
+          </CustomText>
           <Button title="Seleccionar fecha" onPress={showDatePicker} />
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
@@ -77,8 +92,14 @@ const Form = () => {
             onConfirm={ConfirmDate}
             onCancel={hideDatePicker}
           />
+          <CustomText fz="18px" mt="20px" clr="black" align="left">
+            {date}
+          </CustomText>
         </View>
         <View>
+          <CustomText fz="18px" mt="20px" clr="black" align="left">
+            Hora
+          </CustomText>
           <Button title="Seleccionar hora" onPress={showTimePicker} />
           <DateTimePickerModal
             isVisible={isTimePickerVisible}
@@ -86,6 +107,9 @@ const Form = () => {
             onConfirm={ConfirmTime}
             onCancel={hideTimePicker}
           />
+          <CustomText fz="18px" mt="20px" clr="black" align="left">
+            {time}
+          </CustomText>
         </View>
         <ContainerInput>
           <CustomText fz="18px" mt="20px" clr="black" align="left">
